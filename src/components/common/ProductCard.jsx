@@ -4,7 +4,7 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/css/productCard.css'
 import image from '../../styles/images/h.jpg'
 
-class ProductList extends Component {
+class ProductCard extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
@@ -73,4 +73,4 @@ class ProductList extends Component {
     }
 }
  
-export default ProductList;
+export default ProductCard;

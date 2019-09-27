@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react'
 import NavBar from './common/navBar';
 import '../styles/css/index.css'
 import image from '../styles/images/hey.jpg'
-import ProductCard from './common/ProductCard';
+import Products from './Products';
 import Footer from './common/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignJustify } from '@fortawesome/free-solid-svg-icons';
@@ -52,7 +52,7 @@ class Index extends Component {
                     <FontAwesomeIcon icon={faAlignJustify} />
                     <span className='homeCardTitle'> Featured</span>
                     </p>
-                    <ProductCard />
+                    <Products />
                     <div className='pagination-div'>
                     <div className="pagination">{renderPageNumbers}</div>
                     </div>
