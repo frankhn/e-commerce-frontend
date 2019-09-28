@@ -17,6 +17,11 @@ class ProductPage extends Component {
         }
         this.props.productActions()
     }
+    handleClick = event => {
+    this.setState({
+      currentPage: Number(event.target.id),
+    });
+  };
     mapProducts(products) {
         const elements = products;
         const { currentPage, productsPerPage } = this.state;
@@ -43,10 +48,40 @@ class ProductPage extends Component {
     render() {
         const { products } = this.props.products;
         if (products !== undefined) {
+
+            const pageNumbers = [];
+            for (
+                let i = 1;
+                i <= Math.ceil(products.length / this.state.productsPerPage);
+                i += 1
+            ) {
+                pageNumbers.push(i);
+            }
+
+            const renderPageNumbers = pageNumbers.map(number => {
+                return (
+                    <a
+                        key={number}
+                        id={number}
+                        href="javascript:;"
+                        onClick={this.handleClick}
+                    >
+                        {number}
+                    </a>
+                );
+            });
+
+
+
             return (
                 <Fragment>
                     <div className='cardholder'>
                         {this.mapProducts(products)}
+                    </div>
+                    <div className="paginate-section">
+                        <div className="center">
+                            <div className="pagination">{renderPageNumbers}</div>
+                        </div>
                     </div>
                 </Fragment>
             );

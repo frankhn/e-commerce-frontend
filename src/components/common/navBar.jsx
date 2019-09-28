@@ -5,12 +5,17 @@ import categoriesActions from '../../redux/actions/categories.action'
 import '../../styles/css/navBar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+// import { Redirect } from 'react-router'
+import Spinner from './spinner';
 
 class NavBar extends Component {
     constructor(props) {
         super(props);
         this.props.categoriesActions()
-        this.state = {}
+        this.state = {
+            search: '',
+            link: ''
+        }
     }
     mapCategories(categories) {
                 const categoryArray = categories.map(category => (
@@ -18,20 +23,31 @@ class NavBar extends Component {
             ))
             return categoryArray
     }
+
+     handleChange = e => {
+    this.setState({ search: e.target.value });
+  };
+
+    search = (event) => {
+        event.preventDefault();
+        this.state.link = `/search?term=${this.state.search}`
+        console.log(this.state.link)
+        if (this.state.search !== '') { 
+        return window.location.assign(this.state.link)
+        }
+        }
     render() {
         const { categories } = this.props
         let categoriesArray
-        console.log(categories);
         if (categories !== undefined) {
            categoriesArray = categories
-        }
         return (
             <div className="topnav" id="myTopnav">
                 <Link to="/" id='brand'>SHOPMATE</Link>
                 <div className='menu'>
                     <div className='search-field'>
-                        <form className='search_form'>
-                            <input className='search' type='text' placeholder='search shop mate' />
+                        <form className='search_form' onSubmit={this.search}>
+                            <input className='search' type='text' placeholder='search shop mate' onChange={this.handleChange} value={this.state.search} />
                             <button className='search-btn' type='submit' value='search'>
                                 <FontAwesomeIcon icon={faSearch} />
                             </button>
@@ -44,8 +60,14 @@ class NavBar extends Component {
                 </div>
             </div>
         );
+        }
+        return (
+            <div>
+                <Spinner />
+            </div>
+        )
     }
-}
+} 
 const mapStateToProps = state => ({
     categories: state.categories
 })
